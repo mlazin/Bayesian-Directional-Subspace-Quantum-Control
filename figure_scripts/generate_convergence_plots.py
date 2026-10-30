@@ -2,6 +2,10 @@
 """
 Reproduce the manuscript convergence plots.
 
+This script generates the convergence plots shown in Figures 3, 6, and 9
+of the manuscript for the Hexagonal, Triangular Ga-face, and Triangular
+N-face systems, respectively.
+
 This script reads the stored optimization logs for 10 independent runs of
 Line Search, BO-DSO, and SAASBO-DSO and generates the grouped convergence
 figures used in the manuscript.
@@ -28,8 +32,6 @@ Optional custom paths:
     python figure_scripts/generate_convergence_plots.py \
         --data-dir path/to/logs \
         --output-dir path/to/output
-
-Update this header with the final manuscript figure numbers before release.
 """
 
 from __future__ import annotations
@@ -148,9 +150,6 @@ def repository_root() -> Path:
 def read_array_from_log(path: Path, marker: str) -> np.ndarray:
     """
     Return the array from the last line in *path* containing *marker*.
-
-    This preserves the behavior of the original notebook while adding explicit
-    errors when a required marker or file is missing.
     """
     if not path.exists():
         raise FileNotFoundError(f"Required log file not found: {path}")
