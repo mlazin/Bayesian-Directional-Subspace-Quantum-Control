@@ -23,19 +23,19 @@ SFILES = {
     "hex": Path(
         os.environ.get(
             "QCONTROL_HEX_SFILE",
-            SYSTEM_DIR / "hex.mat",
+            SYSTEM_DIR / "geom_hex.mat",
         )
     ),
     "triG": Path(
         os.environ.get(
             "QCONTROL_TRIG_SFILE",
-            SYSTEM_DIR / "triG.mat",
+            SYSTEM_DIR / "geom_triG.mat",
         )
     ),
     "triN": Path(
         os.environ.get(
             "QCONTROL_TRIN_SFILE",
-            SYSTEM_DIR / "triN.mat",
+            SYSTEM_DIR / "geom_triN.mat",
         )
     ),
 }
