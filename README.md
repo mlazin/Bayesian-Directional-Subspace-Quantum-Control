@@ -282,7 +282,7 @@ The plotted curves show the mean best-so-far transition probability across the t
 
 ## Reproducibility note
 
-The optimization implementations in this repository retain the computational behavior used to generate the reported results. Some implementation details therefore intentionally preserve the historical experiment code rather than introducing later algorithmic changes.
+The optimization implementations in this repository retain the computational behavior used to generate the reported results. 
 
 The stored convergence logs can be used to reproduce the manuscript convergence figures without rerunning the computationally expensive optimization experiments.
 
