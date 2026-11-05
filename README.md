@@ -8,17 +8,17 @@ This repository contains the quantum-control simulation code, optimization metho
 
 The optimization problem is formulated in terms of a two-component time-dependent electric field,
 
-\[
+$$
 \mathbf{E}(t) = \left(E_x(t), E_y(t)\right),
-\]
+$$
 
 with the objective of maximizing the state-transition probability
 
-\[
-P = \left|\langle \psi_f | \psi(T) \rangle\right|^2.
-\]
+$$
+P = \left|\langle \psi_f \mid \psi(T) \rangle\right|^2.
+$$
 
-The optimization routines minimize \(f=-P\).
+The optimization routines minimize $f=-P$.
 
 The three optimization approaches considered in the manuscript are:
 
