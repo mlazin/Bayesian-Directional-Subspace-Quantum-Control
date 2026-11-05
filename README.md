@@ -155,7 +155,7 @@ triG
 triN
 ```
 
-For example, to run BO-DSO for the \(1\rightarrow2\) transition in the hexagonal geometry using the first random seed:
+For example, to run BO-DSO for the $1 \rightarrow 2$ transition in the hexagonal geometry using the first random seed:
 
 ```bash
 python -m optimization.run_experiment \
@@ -219,7 +219,7 @@ The main settings used for the reported experiments are encoded directly in `opt
 - Initial field: zero field
 - Search direction: normalized negative gradient
 - SciPy line search with Wolfe conditions
-- Fallback step size: \(10^{-2}\)
+- Fallback step size: $10^{-2}$
 
 ### BO-DSO
 
