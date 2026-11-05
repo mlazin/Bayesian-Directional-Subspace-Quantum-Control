@@ -56,7 +56,6 @@ def _normal_cdf_torch(z):
 
 def expected_improvement(x, model, likelihood, best_y, grad=True, xi=0.1):
     """
-    CHANGE:
     - If grad=True: x comes in as numpy (shape (d,)) from SciPy.
       We create a torch tensor with requires_grad=True and return (value, grad_numpy).
     - If grad=False: keep old behavior (returns numpy array) for plotting code.
