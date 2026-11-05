@@ -109,22 +109,28 @@ Contains scripts that process the stored optimization logs and reproduce manuscr
 
 ## Software requirements
 
-The workflow is implemented in Python and uses the following main packages:
+The experiments reported in the manuscript were performed using **Python 3.11.11**.
 
-```text
-numpy
-scipy
-matplotlib
-torch
-gpytorch
-jax
-numpyro
-scikit-sparse
+The principal software packages used were:
+
+```text id="rxjrto"
+numpy          1.26.4
+scipy          1.13.1
+matplotlib     3.10.0
+torch          2.2.0+cu121
+gpytorch       1.13
+jax            0.4.35
+jaxlib         0.4.35
+numpyro        0.13.2
+scikit-sparse  0.4.14
+SuiteSparse    5.10.1
 ```
 
-The quantum simulator uses the CHOLMOD interface provided by `scikit-sparse`, which requires SuiteSparse/CHOLMOD to be available on the system.
+The quantum-control simulator uses the CHOLMOD interface provided by `scikit-sparse`, which requires SuiteSparse/CHOLMOD to be available on the system.
 
-A CPU environment can be used for the experiments reported here.
+The PyTorch installation used for the reported experiments was built with CUDA 12.1 support (`torch 2.2.0+cu121`); however, GPU acceleration is not required for the provided optimization workflow, which can be executed on CPU.
+
+These version numbers document the software environment used for the reported calculations. Other compatible package versions may also work, but the versions above correspond to the environment used for the manuscript results.
 
 ## Running an optimization experiment
 
