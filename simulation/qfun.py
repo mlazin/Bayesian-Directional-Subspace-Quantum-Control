@@ -19,8 +19,8 @@ class Sqfun:
         self.counter = 0
         self.sys = None
         self.maxe = bound
-        self.E = None                      #change
-        self.flatten_grad = flatten_grad   #change
+        self.E = None                      
+        self.flatten_grad = flatten_grad   
 
     def __call__(self,x,fid=0,grad=False):
         
@@ -91,7 +91,6 @@ class freqdomain:
         self.f = origfn
         self.penalty = 10
         self.nt = origfn.bounds().shape[1]//2
-        #print("checking the nt...... from freqdomain....",self.nt)
         self.nfullfreq = self.nt//2+1 if self.nt%2==0 else (self.nt+1)//2
 
         if nfreq is not None:
@@ -110,8 +109,6 @@ class freqdomain:
         minbnds = np.hstack((np.ones((1,nf))*-maxxb,np.ones((1,nf))*-maxyb))
         maxbnds = np.hstack((np.ones((1,nf))*maxxb,np.ones((1,nf))*maxyb))
         return (np.vstack((minbnds,maxbnds))*self.nt/2, np.minimum(maxxb,maxyb)*nf/2)
-        
-        #return self.f.bounds()
 
 
     def coupleddims(self,i):
@@ -146,13 +143,10 @@ class freqdomain:
             if False: # this was to test grad by finite difference
                 delx = 1e-10
                 def addtoi(x,i,v):
-                #    print('adding to ',i)
                     ret = x.copy()
                     ret[i] += v
                     return self.map(ret)
                 def calcdiff(f1,f2,delx):
-                #    print(f1,f2,delx)
-                #    print((f1-f2)/delx)
                     return (f1-f2)/delx
                 n = 10 #len(x)
                 fdgrad = np.array([
@@ -175,10 +169,6 @@ class freqdomain:
           Efreq = scipy.fft.rfft(E,n = self.nfullfreq)
           d = np.argmax(Efreq)
           ds |= set([d]+self.coupleddims(d)+[d+n2]+self.coupleddims(d+n2))
-       #d = np.argmax(np.array(ds))
-       #print("d couple d , d+n2 and couple d+n2", d, self.coupleddims(d), d+n2, self.coupleddims(d+n2))
-       #return [d] + self.coupleddims(d) + [d+n2] + self.coupleddims(d+n2)
-       #exit(1)
        return list(ds)
 
     # just as the algo
@@ -189,19 +179,14 @@ class freqdomain:
        #freq all energy diff
        for i in range(len(freq)):
           E = np.sin(freq[i]*np.arange(self.nt))
-          #print("shape of E from freqtofeat",E.shape)
           f = scipy.fft.rfft(E)
-          #print("shape of f...",f.shape,f)
           fks.append(np.argmax(f))
-          #fks.append(f)
        d = np.argmax(np.array(fks))
-       #print("the d from freqtofeat",d,fks)
-       #print("d couple d , d+n2 and couple d+n2", d, self.coupleddims(d), d+n2, self.coupleddims(d+n2))
+
        return [d] + self.coupleddims(d)  + [d+n2] + self.coupleddims(d+n2)
 
     def getdimsfromfreq(self):
       freq = self.f.getenergy()
-      #print("the freqs from getdimsfromfreq.....",freq)
       return self.freqtofeat(freq)
 
     def map(self,x):
@@ -209,7 +194,6 @@ class freqdomain:
         xdim = int(len(x))
         xdim = int(xdim/2)
         
-        # CHANGE3
         xdim = self.nt
 
         Exfreq = np.zeros(self.nfullfreq,dtype=complex)
@@ -219,30 +203,13 @@ class freqdomain:
         Exfreq[0] = x[0]
         Exfreq[1:n1] = x[1:n1] + 1j*x[n1:n2]
         Exabs = np.absolute(Exfreq)
-        #Exfreq = Exfreq*np.max(Exabs)/np.sum(Exabs)
 
         Eyfreq[0] = x[n2]
         Eyfreq[1:n1] = x[n2+1:n2+n1] + 1j*x[n2+n1:]
         Eyabs = np.absolute(Eyfreq)
-        #Eyfreq = Eyfreq*np.max(Eyabs)/np.sum(Eyabs)
 
-        #if xdim % 2 ==0:
-        #  Ex = scipy.fft.irfft(Exfreq)
-        #  Ey = scipy.fft.irfft(Eyfreq)
-        #else:
-        #  Ex = scipy.fft.irfft(Exfreq,n=xdim)
-        #  Ey = scipy.fft.irfft(Eyfreq,n=xdim)
-        """
-        #6_18_2025, Change for Bin 4
-        Exfreq = np.zeros(self.nfullfreq,dtype=complex)
-        Eyfreq = np.zeros(self.nfullfreq,dtype=complex)
-        #Exfreq[4] = 0-1j*x[0]      #x[0] = 0.54075
-        Exfreq[4] = x[0]      #x[0] = 0.54075
-        """
-        # CHANGE3
         Ex = scipy.fft.irfft(Exfreq,n=xdim)
         Ey = scipy.fft.irfft(Eyfreq,n=xdim)
-
 
         return np.hstack((Ex,Ey)), np.sum(Exabs), np.sum(Eyabs)
 
