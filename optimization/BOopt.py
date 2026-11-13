@@ -131,6 +131,11 @@ class BayesOpt_wrapper:
                             self.m = m
                             self.x0 = torch.from_numpy(x0)
                             self.xdir= torch.from_numpy(xdir)
+                        def parameters(self):
+                            return self.m.parameters()
+
+                        def zero_grad(self, **kwargs):
+                            return self.m.zero_grad(**kwargs)
 
                         def eval(self):
                             self.m.eval()
