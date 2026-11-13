@@ -14,7 +14,7 @@ class DirectionalAlphaWrapper1D(object):
                  sim,
                  alpha_bounds=(-0.05, 0.05),
                  max_outer_iters=5,
-                 theta_expand=0.5): # CHANGE 4: from 0.5 to 0.1 (undo)
+                 theta_expand=0.5): # from 0.5 to 0.1 
         
         self.baseopt = baseopt
         self.sim = sim
@@ -107,10 +107,6 @@ class DirectionalAlphaWrapper1D(object):
         # rescaling alpha
         c, s = self._alpha_affine()          # real alpha = c + s * au
         bounds_au = self._au_bounds_vec(k)
-        #bounds_au[1,0] = 0 # CHANGE 9: hack to make only search in neg dir of first grad
-        #bounds_au[0,0] = 0 # CHANGE 5: hack to make only search in pos dir of first grad
-        # CHANGE 8: actually, all improvements should be in the "negative grad" direction:
-        #bounds_au[1,:] = 0 # force upper limit to be 0
 
         def phi(a, grad=True):
             # map internal a to real alpha, then to X
@@ -122,7 +118,7 @@ class DirectionalAlphaWrapper1D(object):
                 val, gX = sim(X, grad=True)
                 recordX.append(X)
                 recordY.append(val)
-                recordGrad.append(gX)        # store original gradient ?_X f
+                recordGrad.append(gX)        # store original gradient 
 
                 recordAlpha.append(a_real.copy())
                 recordAvals.append(float(val))
@@ -484,7 +480,7 @@ class DirectionalAlphaWrapper(object):
                 val, gX = sim(X, grad=True)
                 recordX.append(X)
                 recordY.append(val)
-                recordGrad.append(gX)        # store original gradient ?_X f
+                recordGrad.append(gX)        # store original gradient 
 
                 recordAlpha.append(a_real.copy())
                 recordAvals.append(float(val))
@@ -740,7 +736,7 @@ class scipyopt_linesearch:
             
             # direction = -gradient (optionally normalized)
             p = -gx.copy()
-            if self.normalize_dirs:                       # NEW
+            if self.normalize_dirs:                       
                 n = np.linalg.norm(p)
                 if n > 0:
                     p /= n
